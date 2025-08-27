@@ -31,11 +31,12 @@ jobs:
 
       - name: Run PyTest (Chrome headless)
         env:
-          BASE_URL: https://demo.openemr.io/openemr/portal/patient/
-          PATIENT_USERNAME: demopatient
-          PATIENT_PASSWORD: portal
-          PATIENT_EMAIL: demo@demo.com
+          BASE_URL: https://demo.openemr.io/openemr/portal/index.php
+          PATIENT_USERNAME: Phil1
+          PATIENT_PASSWORD: phil
+          PATIENT_EMAIL: heya@invalid.email.com
           HEADLESS: "true"
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           pytest --browser=chrome \
                  --html=reports/report_chrome.html \
