@@ -1,0 +1,48 @@
+name: Patient Portal Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+
+      - name: Run PyTest (Chrome headless)
+        env:
+          BASE_URL: https://demo.openemr.io/openemr/portal/patient/
+          PATIENT_USERNAME: demopatient
+          PATIENT_PASSWORD: portal
+          PATIENT_EMAIL: demo@demo.com
+          HEADLESS: "true"
+        run: |
+          pytest --browser=chrome \
+                 --html=reports/report_chrome.html \
+                 --self-contained-html
+
+      - name: Upload test report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-report-chrome
+          path: reports/
