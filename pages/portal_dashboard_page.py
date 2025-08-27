@@ -1,7 +1,9 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 
 class PortalDashboardPage(BasePage):
+    LOGOUT_URL = r"https://demo.openemr.io/openemr./logout.php"
     LOGOUT_BTN = (By.LINK_TEXT, "Logout")
     DASHBOARD_BTN = (By.ID, "quickstart_dashboard")
 
@@ -10,3 +12,6 @@ class PortalDashboardPage(BasePage):
 
     def logout(self):
         self.click(self.LOGOUT_BTN)
+        
+    def is_logged_out(self):
+        return EC.url_matches(self.LOGOUT_URL)

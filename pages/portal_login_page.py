@@ -7,6 +7,7 @@ class PortalLoginPage(BasePage):
     PASSWORD = (By.ID, "pass")
     EMAIL = (By.ID, "passaddon")
     LOGIN_BTN = (By.CSS_SELECTOR, 'button.btn-success')
+    ALERT_DIV = (By.CSS_SELECTOR, 'div[role="alert"]')
     
     def login(self, username, password, email):
         self.wait.until(EC.visibility_of_element_located(self.USERNAME))
@@ -14,3 +15,6 @@ class PortalLoginPage(BasePage):
         self.type(self.PASSWORD, password)
         self.type(self.EMAIL, email)
         self.click(self.LOGIN_BTN)
+        
+    def is_alert_displayed(self):
+        return self.is_visible(self.ALERT_DIV)
