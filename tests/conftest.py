@@ -30,6 +30,9 @@ def driver(request):
         if headless:
             options.add_argument("--headless=new")
         options.add_argument("--window-size=1920,1080")
+        options.add_experimental_option("prefs", {
+            "profile.password_manager_leak_detection": False
+        })
         drv = webdriver.Chrome(options=options)
 
     elif browser == "firefox":
