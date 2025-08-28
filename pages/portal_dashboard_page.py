@@ -17,8 +17,8 @@ class PortalDashboardPage(BasePage):
     def is_logged_out(self):
         return EC.url_matches(self.LOGOUT_URL)
     
-    def go_to(self, tab):
-        if tab == "profile":
+    def go_to(self, tab:str):
+        if tab.lower() == "profile":
             self.click(self.PROFILE_BTN)
         else:
             if not isinstance(tab, str):
