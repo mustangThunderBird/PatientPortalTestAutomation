@@ -5,6 +5,7 @@ from pages.base_page import BasePage
 class PortalDashboardPage(BasePage):
     LOGOUT_URL = r"https://demo.openemr.io/openemr./logout.php"
     LOGOUT_BTN = (By.LINK_TEXT, "Logout")
+    PROFILE_BTN = (By.LINK_TEXT, "Profile")
     DASHBOARD_BTN = (By.ID, "quickstart_dashboard")
 
     def is_logged_in(self):
@@ -15,3 +16,12 @@ class PortalDashboardPage(BasePage):
         
     def is_logged_out(self):
         return EC.url_matches(self.LOGOUT_URL)
+    
+    def go_to(self, tab:str):
+        if tab.lower() == "profile":
+            self.click(self.PROFILE_BTN)
+        else:
+            if not isinstance(tab, str):
+                raise AttributeError(f"Error... recieved type {type(tab)} for tab when it should be str...")
+            else:
+                raise ValueError(f"Error... invalid str argument for tab...")
