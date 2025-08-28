@@ -5,7 +5,7 @@ from pages.base_page import BasePage
 class PortalDashboardPage(BasePage):
     LOGOUT_URL = r"https://demo.openemr.io/openemr./logout.php"
     LOGOUT_BTN = (By.LINK_TEXT, "Logout")
-    PROFILE_BTN = (By.LINK_TEXT, "Profile")
+    PROFILE_BTN = (By.XPATH, '//*[@id="profile-go"]/div/button')
     DASHBOARD_BTN = (By.ID, "quickstart_dashboard")
 
     def is_logged_in(self):
