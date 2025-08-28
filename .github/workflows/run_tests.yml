@@ -40,12 +40,12 @@ jobs:
           PYTHONPATH: ${{ github.workspace }}
         run: |
           pytest --browser=chrome \
-                 --html=reports/report_chrome.html \
+                 --html=reports/report.html \
                  --self-contained-html
 
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-report-chrome
+          name: pytest-report
           path: reports/
