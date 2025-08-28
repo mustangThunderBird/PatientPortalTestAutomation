@@ -3,6 +3,8 @@ name: Patient Portal Tests
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   test:
@@ -41,6 +43,7 @@ jobs:
                  --self-contained-html
 
       - name: Upload test report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: pytest-report-chrome
