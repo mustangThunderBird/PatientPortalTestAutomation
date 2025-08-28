@@ -5,7 +5,7 @@ from pages.portal_dashboard_page import PortalDashboardPage
 from pages.portal_profile_page import PortalProfilePage
 
 BASE_URL = os.getenv("BASE_URL")
-timeout = 30 if os.getenv("CI") else 10
+TIMEOUT = int(os.getenv("TIMEOUT"))
 
 @pytest.mark.regression
 @pytest.mark.tc04
@@ -18,7 +18,7 @@ def test_demographics_presence(driver):
     dashboard.go_to("profile")
 
     profile = PortalProfilePage(driver)
-    profile.wait_until_visible(timeout=timeout)
+    profile.wait_until_visible(timeout=TIMEOUT)
     assert profile.is_profile_visible(), "Profile card should be expanded"
     assert profile.demographics_present(), "Demographics fields should not be empty"
     
@@ -33,7 +33,7 @@ def test_dob_format(driver):
     dashboard.go_to("profile")
 
     profile = PortalProfilePage(driver)
-    profile.wait_until_visible(timeout=timeout)
+    profile.wait_until_visible(timeout=TIMEOUT)
     assert profile.is_dob_formatted(), "DOB field should be formatted as YYYY-MM-DD"
 
 @pytest.mark.regression
@@ -47,5 +47,5 @@ def test_phone_format(driver):
     dashboard.go_to("profile")
 
     profile = PortalProfilePage(driver)
-    profile.wait_until_visible(timeout=timeout)
+    profile.wait_until_visible(timeout=TIMEOUT)
     assert profile.is_phone_formatted(), "DOB field should be formatted as ###-###-####"

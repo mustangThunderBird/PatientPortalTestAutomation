@@ -36,6 +36,7 @@ jobs:
           PATIENT_PASSWORD: phil
           PATIENT_EMAIL: heya@invalid.email.com
           HEADLESS: "true"
+          TIMEOUT: "30"
           PYTHONPATH: ${{ github.workspace }}
         run: |
           pytest --browser=chrome \
