@@ -13,6 +13,30 @@ class PortalAppointmentsPage(BasePage):
     APPOINTMENT_LINKS = (By.CSS_SELECTOR, "td.srTimes a")
     SAVE_APPOINTMENT_BUTTON = (By.NAME, "form_save")
     APPOINTMENT_CARDS = (By.CSS_SELECTOR, "#appointmentcard .card-body.font-weight-bold p")
+    REASON_INPUT = (By.NAME, "form_comments")
+    CANCEL_BUTTON = (By.ID, "form_cancel")
+    
+    def cancel_appointment(self):
+        was_cancelled = False
+        cards = self.wait.until(EC.presence_of_all_elements_located(self.APPOINTMENT_CARDS))
+        if not cards:
+            raise Exception("No future appointments to cancel")
+
+        # Step 2: click the edit icon inside the first card
+        # find the first edit link
+        edit_link = self.wait.until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, "a[onclick^='editAppointment']"))
+        )
+        self.driver.execute_script("arguments[0].click();", edit_link)
+        time.sleep(1)
+        
+        self.click(self.REASON_INPUT)
+        self.type(self.REASON_INPUT, "something came up")
+        time.sleep(0.5)
+        self.click(self.CANCEL_BUTTON)
+        was_cancelled = True
+        
+        return was_cancelled
     
     def edit_appointment(self):
         was_edited = False
