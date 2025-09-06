@@ -6,6 +6,7 @@ class PortalDashboardPage(BasePage):
     LOGOUT_URL = r"https://demo.openemr.io/openemr./logout.php"
     LOGOUT_BTN = (By.LINK_TEXT, "Logout")
     PROFILE_BTN = (By.ID, "profile-go")
+    APPOINTMENTS_BTN = (By.ID, "appointments-go")
     DASHBOARD_BTN = (By.ID, "quickstart_dashboard")
 
     def is_logged_in(self):
@@ -20,6 +21,8 @@ class PortalDashboardPage(BasePage):
     def go_to(self, tab:str):
         if tab.lower() == "profile":
             self.click(self.PROFILE_BTN)
+        elif tab.lower() == "appointments":
+            self.click(self.APPOINTMENTS_BTN)
         else:
             if not isinstance(tab, str):
                 raise AttributeError(f"Error... recieved type {type(tab)} for tab when it should be str...")

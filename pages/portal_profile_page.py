@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 
@@ -9,15 +8,6 @@ class PortalProfilePage(BasePage):
     DOB_FIELD = (By.XPATH, "//td[contains(text(), 'DOB')]/following-sibling::td")
     PHONE_FIELD = (By.XPATH, "//td[contains(text(), 'Home Phone')]/following-sibling::td")
     ADDRESS_FIELD = (By.XPATH, "//td[contains(text(), 'Address')]/following-sibling::td")
-    
-    def wait_until_visible(self, timeout=20):
-        """Wait until profile card is expanded (class contains 'show')."""
-        WebDriverWait(self.driver, timeout).until(
-            EC.visibility_of_element_located(self.PROFILE_CARD)
-        )
-        WebDriverWait(self.driver, timeout).until(
-            lambda d: "show" in d.find_element(*self.PROFILE_CARD).get_attribute("class")
-        )
 
     def is_profile_visible(self):
         """Check that profile card div has 'show' class (expanded)."""
