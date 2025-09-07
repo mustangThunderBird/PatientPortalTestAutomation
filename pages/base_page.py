@@ -5,6 +5,15 @@ class BasePage:
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 20)
+        
+    def wait_until_visible(self, card, timeout=20):
+        """Wait until card is expanded (class contains 'show')."""
+        WebDriverWait(self.driver, timeout).until(
+            EC.visibility_of_element_located(card)
+        )
+        WebDriverWait(self.driver, timeout).until(
+            lambda d: "show" in d.find_element(*card).get_attribute("class")
+        )
 
     def click(self, locator):
         element = self.wait.until(EC.element_to_be_clickable(locator))
