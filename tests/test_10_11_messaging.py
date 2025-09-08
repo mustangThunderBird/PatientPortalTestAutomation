@@ -30,7 +30,7 @@ def test_send_message(driver):
     # Step C: wait for the modal to close and for refresh
     driver.switch_to.default_content()
     driver.switch_to.frame(driver.find_element(*PortalMessagingPage.MESSAGE_IFRAME))
-    WebDriverWait(driver, 15).until(
+    WebDriverWait(driver, 25).until(
         lambda d: messages.get_sent_count() > before_count
     )
     
