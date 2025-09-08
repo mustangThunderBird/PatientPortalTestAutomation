@@ -117,7 +117,7 @@ Mapped to manual test cases documented in OpenEMR Patient Portal Test Plan.md:
 - Ensure ChromeDriver is available in PATH (Selenium handles this in most modern versions).
 - Use `HEADLESS=false` in `.env` to debug visually.
 - Delete `reports/` if reports fail to regenerate.
-- If tests fail inconsistently, increase TIMEOUT in `.env`.
+- If tests fail inconsistently, increase TIMEOUT var in `.env`.
 
 ## License
 This project is for educational and portfolio purposes. It is not affiliated with or endorsed by OpenEMR.
