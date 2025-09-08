@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
 from pages.base_page import BasePage
 import time
 
@@ -7,6 +8,7 @@ import time
 class PortalAppointmentsPage(BasePage):
     APPOINTMENTS_CARD = (By.ID, "appointmentcard")
     SCHEDULE_APPOINTMENT_BTN = (By.LINK_TEXT, "Schedule A New Appointment")
+    PROVIDER_DROPDOWN = (By.ID, "form_provider_ae")
     SEE_AVAILABILITY_BTN = (By.CSS_SELECTOR, "input.btn.btn-success[value='See Availability']")
     IFRAME = (By.ID, "modalframe") 
     APPOINTMENT_LINKS = (By.CSS_SELECTOR, "td.srTimes a")
@@ -80,6 +82,11 @@ class PortalAppointmentsPage(BasePage):
         was_edited = True
         
         return was_edited
+    
+    def choose_provider(self, provider_name: str):
+        dropdown = self.driver.find_element(*self.PROVIDER_DROPDOWN)
+        select = Select(dropdown)
+        select.select_by_visible_text(provider_name)
 
                 
     def request_appointment(self):
@@ -87,6 +94,9 @@ class PortalAppointmentsPage(BasePage):
                 
         self.click(self.SCHEDULE_APPOINTMENT_BTN)
         time.sleep(0.5)
+        
+        #Choose billy smith
+        self.choose_provider("Smith, Billy")
 
         # Step 1: click See Availability
         btn = self.wait.until(EC.element_to_be_clickable(self.SEE_AVAILABILITY_BTN))
