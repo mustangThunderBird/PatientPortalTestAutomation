@@ -69,7 +69,7 @@ class PortalMessagingPage(BasePage):
         
         # Step 4 Write and send message
         self.write_message_and_send("I need a refill of Zofran")
-        time.sleep(1)
+        time.sleep(3)
     
     def view_all_messages(self):
         self.click(self.ALL_TAB)
