@@ -8,6 +8,7 @@ class PortalDashboardPage(BasePage):
     PROFILE_BTN = (By.ID, "profile-go")
     APPOINTMENTS_BTN = (By.ID, "appointments-go")
     DASHBOARD_BTN = (By.ID, "quickstart_dashboard")
+    MESSAGING_BTN = (By.ID, "messages-go")
 
     def is_logged_in(self):
         return self.is_visible(self.DASHBOARD_BTN)
@@ -23,6 +24,8 @@ class PortalDashboardPage(BasePage):
             self.click(self.PROFILE_BTN)
         elif tab.lower() == "appointments":
             self.click(self.APPOINTMENTS_BTN)
+        elif tab.lower() == "messaging":
+            self.click(self.MESSAGING_BTN)
         else:
             if not isinstance(tab, str):
                 raise AttributeError(f"Error... recieved type {type(tab)} for tab when it should be str...")
