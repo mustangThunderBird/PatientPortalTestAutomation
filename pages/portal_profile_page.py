@@ -34,8 +34,11 @@ class PortalProfilePage(BasePage):
         return (1900 <= year <= 2100) and (1 <= month <= 12) and (1 <= day <= 31)
     
     def is_phone_formatted(self):
-        """Verify that PHONE_FIELD is formatted as ###-###-####"""
-        phone = self.get_field_text(self.PHONE_FIELD)
-        ac,first3,last4 = map(int, phone.split("-"))
-        return isinstance(ac, int) and isinstance(first3, int) and isinstance(last4, int)
+        """Verify that PHONE_FIELD is formatted as ###-###-#### or ##########"""
+        phone = str(self.get_field_text(self.PHONE_FIELD))
+        if len(phone.split("-")) == 3:
+            ac,first3,last4 = map(int, phone.split("-"))
+            return isinstance(ac, int) and isinstance(first3, int) and isinstance(last4, int)
+        else:
+            return len(phone) == 10 and phone.isdigit()
     
