@@ -9,15 +9,28 @@ class PortalMessagingPage(BasePage):
     MESSAGE_IFRAME = (By.CSS_SELECTOR, "iframe[src*='messaging/messages.php']")
     LOADING_SPINNER = (By.CSS_SELECTOR, "div.alert.alert-info h3")
     SENT_COUNT = (By.XPATH, "//a[contains(.,'Sent')]/span")
+    All_COUNT = ((By.XPATH, "//a[contains(.,'All')]/span"))
+    ALL_TAB = (By.XPATH, "//a[contains(.,'All')]")
+    ALL_MESSAGES_ROWS = (By.CSS_SELECTOR, "table tbody tr")
     TO_DROPDOWN = (By.ID, "selSendto")
     SUBJECT_INPUT = (By.ID, "title")
     BODY_EDITOR = (By.CSS_SELECTOR, "div.note-editable[contenteditable='true']")
     SEND_BTN = (By.ID, "submit")
+
+    def get_all_count(self):
+        count_elem = self.driver.find_element(*self.All_COUNT)
+        return int(count_elem.text.strip())
     
     def get_sent_count(self):
         count_elem = self.driver.find_element(*self.SENT_COUNT)
         return int(count_elem.text.strip())
     
+    def count_message_rows(self):
+        rows = self.driver.find_elements(*self.ALL_MESSAGES_ROWS)
+        # only count visible rows (skip ng-hide or template ones)
+        visible_rows = [r for r in rows if r.is_displayed()]
+        return len(visible_rows)
+        
     def write_message_and_send(self, text):
         # Step 1: type into Summernote editor
         body = self.driver.find_element(*self.BODY_EDITOR)
@@ -57,4 +70,7 @@ class PortalMessagingPage(BasePage):
         # Step 4 Write and send message
         self.write_message_and_send("I need a refill of Zofran")
         time.sleep(1)
-        
+    
+    def view_all_messages(self):
+        self.click(self.ALL_TAB)
+        time.sleep(.5)

@@ -39,3 +39,23 @@ def test_send_message(driver):
     driver.switch_to.default_content()
     
     assert after_count > before_count, f"Sent count did not increase: before={before_count}, after={after_count}"
+    
+@pytest.mark.regression
+@pytest.mark.tc11
+def test_view_messages(driver):
+    driver.get(BASE_URL)
+    login_page = PortalLoginPage(driver)
+    login_page.login(os.getenv("PATIENT_USERNAME"), os.getenv("PATIENT_PASSWORD"), os.getenv("PATIENT_EMAIL"))
+    
+    dashboard = PortalDashboardPage(driver)
+    dashboard.go_to("messaging")
+    
+    messages = PortalMessagingPage(driver)
+    messages.wait_for_message_page_to_load()
+    
+    all_count = messages.get_all_count()
+    
+    messages.view_all_messages()
+    row_count = messages.count_message_rows()
+    
+    assert row_count == all_count, f"Mismatch: badge says {all_count}, table has {row_count}"
