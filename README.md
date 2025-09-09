@@ -1,4 +1,5 @@
 # OpenEMR Patient Portal Test Automation
+- [Youtube Demo Video](https://www.youtube.com/watch?v=fyhguduQQjg)
 - This project is a Selenium + PyTest based automation suite for validating the OpenEMR Patient Portal demo site. It follows the Page Object Model (POM) design and includes coverage for authentication, patient profile integrity, appointments, secure messaging, and HIPAA-style negative security checks.
 - The suite is designed as a portfolio-grade example of healthcare QA automation, featuring structured tests, HTML reporting with screenshots, headless execution, and GitHub Actions CI.
 
